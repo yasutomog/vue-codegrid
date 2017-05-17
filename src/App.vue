@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav-link></nav-link>
-    <router-view class="contents" :memos="memos" @add="add" @remove="remove"></router-view>
+    <router-view class="contents" :memos="memos" @add="add" @remove="remove" @update="update"></router-view>
   </div>
 </template>
 <style lang="scss">
@@ -34,14 +34,26 @@
           {
             id: 1,
             text: 'テスト',
-            date: '16-10-28',
+            date: '2016-10-28',
             tags: ['タグ1', 'タグ2']
           },
           {
             id: 2,
             text: 'テスト2',
-            date: '16-11-28',
+            date: '2016-11-28',
             tags: ['タグ2', 'タグ3']
+          },
+          {
+            id: 3,
+            text: 'テスト3',
+            date: '2016-10-28',
+            tags: ['タグ3', 'タグ4']
+          },
+          {
+            id: 4,
+            text: 'テスト4',
+            date: '2016-11-28',
+            tags: ['タグ4', 'タグ5']
           }
         ]
       }
@@ -64,6 +76,13 @@
           return memo.id === id
         })
         this.memos.splice(index, 1)
+      },
+      update (data) {
+        const id = parseInt(data.id, 10)
+        const index = this.memos.findIndex((memo) => {
+          return memo.id === id
+        })
+        this.memos.splice(index, 1, data)
       }
     },
     components: {

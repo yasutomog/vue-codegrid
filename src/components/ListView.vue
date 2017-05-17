@@ -4,7 +4,8 @@
       <list-item
         v-for="memo in filteredMemos"
         :memo="memo"
-        @remove="remove">
+        @remove="remove"
+        @select="select">
       </list-item>
     </div>
 
@@ -44,6 +45,9 @@
     methods: {
       remove (id) {
         this.$emit('remove', id)
+      },
+      select (id) {
+        this.$emit('select', id)
       }
     },
     components: {
