@@ -18,4 +18,4 @@ let v = new Vue(
   }
 )
 
-v()
+console.log(v)
