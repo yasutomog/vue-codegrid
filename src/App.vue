@@ -1,16 +1,31 @@
 <template>
   <div id="app">
-    <editor-view @add="add"></editor-view>
-    <list-view :memos="memos" @remove="remove"></list-view>
+    <nav-link></nav-link>
+    <router-view class="contents" :memos="memos" @add="add" @remove="remove"></router-view>
   </div>
 </template>
-<style>
+<style lang="scss">
   @import '../static/styles.css';
+  html, body {
+    color: #555;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+  }
+  #app {
+    height: 100%;
+    display: flex;
+    .contents {
+      height: 100%;
+      flex-grow: 1;
+      overflow: scroll;
+      box-sizing: border-box;
+    }
+  }
 </style>
 <script>
-  import EditorView from './components/EditorView'
-  import ListView from './components/ListView'
-
+  // NavLinkのimport文に書き換え
+  import NavLink from './components/NavLink'
   export default {
     name: 'app',
     data () {
@@ -52,8 +67,8 @@
       }
     },
     components: {
-      'editor-view': EditorView,
-      'list-view': ListView
+      // NavLinkのみに書き換え
+      NavLink
     }
   }
 </script>

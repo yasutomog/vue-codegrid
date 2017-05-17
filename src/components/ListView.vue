@@ -2,7 +2,7 @@
   <div class="list-view">
     <div v-if="hasMemo">
       <list-item
-        v-for="memo in memos"
+        v-for="memo in filteredMemos"
         :memo="memo"
         @remove="remove">
       </list-item>
@@ -18,11 +18,27 @@
   import ListItem from './ListItem'
   export default{
     props: {
-      memos: Array
+      memos: Array, // 書き換え
+      count: Number, // 追加
+      sort: String // 追加
     },
     computed: {
       hasMemo () {
-        return this.memos && this.memos.length !== 0
+        return this.filteredMemos && this.filteredMemos.length !== 0 // memosをfilteredMemosに書き換え
+      },
+      // filteredMemos()の処理を追加
+      filteredMemos () {
+        let memos = this.memos.concat()
+        if (this.sort) {
+          switch (this.sort) {
+            case 'latest':
+              memos.reverse()
+          }
+        }
+        if (this.count) {
+          memos = memos.splice(0, this.count)
+        }
+        return memos
       }
     },
     methods: {
