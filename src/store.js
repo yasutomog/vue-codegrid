@@ -1,5 +1,5 @@
 const state = {
-  memos: []
+  memos: require('./memos.json')
 }
 const util = {
   findIndex (memos, id) {
@@ -9,22 +9,19 @@ const util = {
     })
   }
 }
-const debug = process.env.NODE_ENV !== 'production'
-const actions = {
-  addMemo (newMemo) {
-    debug && console.log(`addMemo triggered with`, newMemo)
+
+const mutations = {
+  addMemo (state, newMemo) {
     newMemo.id = state.memos.reduce((id, memo) => {
       return id < memo.id ? memo.id : id
     }, 0) + 1
     state.memos.push(newMemo)
   },
-  removeMemo (id) {
-    debug && console.log(`removeMemo triggered with`, id)
+  removeMemo (state, id) {
     const index = util.findIndex(state.memos, id)
     state.memos.splice(index, 1)
   },
-  updateMemo (memo) {
-    debug && console.log(`updateMemo triggered with`, memo)
+  updateMemo (state, memo) {
     const index = util.findIndex(state.memos, memo.id)
     state.memos.splice(index, 1, memo)
   }
@@ -32,5 +29,5 @@ const actions = {
 
 export default {
   state,
-  actions
+  mutations
 }
